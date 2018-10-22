@@ -5,14 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "serve -s src/",
-    "dev": "nodemon -w src/ -x 'npm run serve'"
+    "dev": "live-server --verbose --no-browser src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^1.18.4",
-    "serve": "^10.0.2"
+    "live-server": "^1.2.0"
   }
 }

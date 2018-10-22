@@ -1,12 +1,36 @@
+const INITIAL_SIZE = 2;
+
 class Snake {
 	constructor() {
 		this.body = [];
-		this.body.push(new Square());
-		this.body.push(new Square(this.body[0].x - this.body[0].l, this.body[0].y));
 		this.newBody = null;
 		this.speedX = 1;
 		this.speedY = 0;
 		this.keyCode = null;
+
+		// init function (better to not have logic on the)
+		this.init(INITIAL_SIZE);
+	}
+
+	/*
+	 * getter function.
+	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+	 */
+	get nextSquare() {
+		let prev = this.body[this.body.length - 1];
+		return {
+			x: prev.x - prev.l,
+			y: prev.y
+		};
+	}
+
+	init(size = INITIAL_SIZE) {
+		this.body.push(new Square());
+
+		for(let i = 1; i < size; i++) {
+			let square = new Square(this.nextSquare.x, this.nextSquare.y)
+			this.body.push(square);
+		}
 	}
 
 	grow() {

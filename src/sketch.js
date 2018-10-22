@@ -4,15 +4,40 @@ TODO:
 	to collide with the boundaries of the canvas.
 */
 
-var snake, fruit, interval, game;
+const DEFAULT_INTERVAL_MS = 300;
+
+var canvas, snake, fruit, interval, intervalMs, game;
 
 function setup() {
-	createCanvas(600, 600);
+	canvas = createCanvas(600, 600);
+	canvas.position(50, 50);
+
 	game = new Game();
 	snake = new Snake();
 	fruit = new Fruit();
-	interval = 300;
-	setInterval(updateSnake, interval);
+
+	interval = setInterval(updateSnake, DEFAULT_INTERVAL_MS);
+
+	selectLabel = createDiv('Select game speed:');
+  selectLabel.position(50, 20);
+
+	var dropdown = createSelect();
+	dropdown.position(180, 15);
+  dropdown.size(150, 30)
+	dropdown.option('50', 50);
+	dropdown.option('100', 100);
+	dropdown.option('200', 200);
+	dropdown.option('300', 300);
+	dropdown.option('500', 500);
+	dropdown.selected('300');
+	dropdown.changed(updateInterval);
+}
+
+function updateInterval(evt) {
+	const value = parseInt(evt.target.value);
+	clearInterval(interval);
+	interval = setInterval(updateSnake, value);
+	evt.target.blur();
 }
 
 function draw() {
